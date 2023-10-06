@@ -1,39 +1,86 @@
 package hackerrank;
 
-import java.nio.charset.StandardCharsets;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class JavaDatatypes {
 
+    private static final BigInteger SHORT_MIN_VALUE = BigInteger.valueOf(Short.MIN_VALUE);
+    private static final BigInteger SHORT_MAX_VALUE = BigInteger.valueOf(Short.MAX_VALUE);
+    private static final BigInteger BYTE_MIN_VALUE = BigInteger.valueOf(Byte.MIN_VALUE);
+    private static final BigInteger BYTE_MAX_VALUE = BigInteger.valueOf(Byte.MAX_VALUE);
+    private static final BigInteger INTEGER_MIN_VALUE = BigInteger.valueOf(Integer.MIN_VALUE);
+    private static final BigInteger INTEGER_MAX_VALUE = BigInteger.valueOf(Integer.MAX_VALUE);
+    private static final BigInteger LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
+    private static final BigInteger LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        int q = sc.nextInt();
-        for (int i = 0; i < q; i++) {
+        int howManyValues = sc.nextInt();
 
-            try {
-                long value = sc.nextLong();
+        for (int i = 0; i < howManyValues; i++) {
+
+            BigInteger value = sc.nextBigInteger();
+
+            if (isNot(value)) {
+                System.out.println(value + " can't be fitted anywhere.");
+            } else {
+
                 System.out.println(value + " can be fitted in: ");
 
-                if (value >= Long.MIN_VALUE && value <= Long.MAX_VALUE) {
-                    System.out.println("* long");
-                }
-                if (value >= Integer.MIN_VALUE && value <= Integer.MAX_VALUE) {
-                    System.out.println("* int");
-                }
-                if (value >= Short.MIN_VALUE && value <= Short.MAX_VALUE) {
+                if (isShort(value)) {
                     System.out.println("* short");
                 }
-                if (value >= Byte.MIN_VALUE && value <= Byte.MAX_VALUE) {
+
+                if (isByte(value)) {
                     System.out.println("* byte");
                 }
-//                if (value < Long.MIN_VALUE && value > Long.MAX_VALUE) {
-//                    System.out.println(value + " can't be fitted anywhere.");
-//                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage() + " can't be fitted anywhere.");
+
+                if (isInteger(value)) {
+                    System.out.println("* int");
+                }
+
+                if (isLong(value)) {
+                    System.out.println("* Long");
+                }
             }
+
         }
     }
+
+    private static boolean isShort(BigInteger number) {
+        if (number.compareTo(SHORT_MIN_VALUE) < 0) {
+            return false;
+        }
+        return number.compareTo(SHORT_MAX_VALUE) <= 0;
+    }
+    private static boolean isByte(BigInteger number) {
+        if (number.compareTo(BYTE_MIN_VALUE) < 0) {
+            return false;
+        }
+        return number.compareTo(BYTE_MAX_VALUE) <= 0;
+    }
+
+    private static boolean isInteger(BigInteger number) {
+        if (number.compareTo(INTEGER_MIN_VALUE) < 0) {
+            return false;
+        }
+        return number.compareTo(INTEGER_MAX_VALUE) <= 0;
+    }
+
+    private static boolean isLong(BigInteger number) {
+        if (number.compareTo(LONG_MIN_VALUE) < 0) {
+            return false;
+        }
+        return number.compareTo(LONG_MAX_VALUE) <= 0;
+    }
+
+    private static boolean isNot(BigInteger number) {
+        if (number.compareTo(LONG_MIN_VALUE) < 0) {
+            return true;
+        }
+        return number.compareTo(LONG_MAX_VALUE) >= 0;
+    }
+
 }
